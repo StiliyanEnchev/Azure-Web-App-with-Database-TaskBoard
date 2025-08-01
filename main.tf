@@ -58,7 +58,7 @@ resource "azurerm_app_service_source_control" "aassc" {
 }
 
 resource "azurerm_mssql_server" "server" {
-  name                         = "Taskboard-sql-server${random_integer.ri.result}"
+  name                         = "taskboardsqlserver${random_integer.ri.result}"
   resource_group_name          = azurerm_resource_group.stlresgroup.name
   location                     = azurerm_resource_group.stlresgroup.location
   version                      = "12.0"
@@ -67,13 +67,14 @@ resource "azurerm_mssql_server" "server" {
 }
 
 resource "azurerm_mssql_database" "database" {
-  name           = "TaskBoardDB${random_integer.ri.result}"
-  server_id      = azurerm_mssql_server.server.id
-  collation      = "SQL_Latin1_General_CP1_CI_AS"
-  license_type   = "LicenseIncluded"
-  max_size_gb    = 2
-  sku_name       = "S0"
-  zone_redundant = false
+  name                 = "TaskBoardDB${random_integer.ri.result}"
+  server_id            = azurerm_mssql_server.server.id
+  collation            = "SQL_Latin1_General_CP1_CI_AS"
+  license_type         = "LicenseIncluded"
+  max_size_gb          = 2
+  sku_name             = "S0"
+  zone_redundant       = false
+  storage_account_type = "Local"
 }
 
 resource "azurerm_mssql_firewall_rule" "firewall" {
