@@ -60,7 +60,7 @@ resource "azurerm_app_service_source_control" "aassc" {
 resource "azurerm_mssql_server" "server" {
   name                         = "taskboardsqlserver${random_integer.ri.result}"
   resource_group_name          = azurerm_resource_group.stlresgroup.name
-  location                     = azurerm_resource_group.stlresgroup.location
+  location                     = "polandcentral"
   version                      = "12.0"
   administrator_login          = "4dm1n157r470r"
   administrator_login_password = "4-v3ry-53cr37-p455w0rd"
@@ -74,7 +74,6 @@ resource "azurerm_mssql_database" "database" {
   max_size_gb          = 2
   sku_name             = "S0"
   zone_redundant       = false
-  storage_account_type = "Local"
 }
 
 resource "azurerm_mssql_firewall_rule" "firewall" {
